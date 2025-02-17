@@ -439,7 +439,10 @@ void WatchFaceInfineat::Refresh() {
     if (chargingBatteryPercent > 100) {
       chargingBatteryPercent = batteryPercentRemaining.Get();
     }
-    SetBatteryLevel(chargingBatteryPercent);
+    // pine_small is 32px tall. We update the animation every 3rd frame to save drawing dupilcate lines and running the CPU at 100%
+    if (chargingBatteryPercent % 3 == 0) {
+      SetBatteryLevel(chargingBatteryPercent);
+    }
   } else if (isCharging.IsUpdated() || batteryPercentRemaining.IsUpdated()) {
     chargingBatteryPercent = batteryPercentRemaining.Get();
     SetBatteryLevel(chargingBatteryPercent);
