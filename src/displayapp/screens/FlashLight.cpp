@@ -46,8 +46,6 @@ FlashLight::FlashLight(System::SystemTask& systemTask, Controllers::BrightnessCo
   lv_obj_set_click(backgroundAction, true);
   backgroundAction->user_data = this;
   lv_obj_set_event_cb(backgroundAction, EventHandler);
-
-  wakeLock.Lock();
 }
 
 FlashLight::~FlashLight() {
@@ -89,8 +87,10 @@ void FlashLight::Toggle() {
   SetColors();
   if (isOn) {
     brightnessController.Set(brightnessLevel);
+    wakeLock.Lock();
   } else {
     brightnessController.Set(Controllers::BrightnessController::Levels::Low);
+    wakeLock.Release();
   }
 }
 
