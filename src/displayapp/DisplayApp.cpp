@@ -315,7 +315,7 @@ void DisplayApp::Refresh() {
         }
         // Since the active screen is not really an app, go back to Clock.
         if (currentApp == Apps::Launcher || currentApp == Apps::Notifications || currentApp == Apps::QuickSettings ||
-            currentApp == Apps::Settings) {
+            currentApp == Apps::Settings || currentApp == Apps::FlashLight) {
           LoadScreen(Apps::Clock, DisplayApp::FullRefreshDirections::None);
           // Wait for the clock app to load before moving on.
           while (!lv_task_handler()) {
